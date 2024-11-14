@@ -508,8 +508,8 @@ public class GameManager : MonoBehaviour
     public void SceneGoodDream()
     {
         //Reset Dream to Good Dream
-        dataManager.data.dreamType = 2;
-        dataManager.Save();
+        //dataManager.data.dreamType = 2;
+        //dataManager.Save();
 
         SceneManager.LoadScene("MainGame");
     }

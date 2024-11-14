@@ -152,6 +152,16 @@ public class Player_Controller : MonoBehaviour
 
     public GameObject prefabCorgiRainbowTrail1;
 
+    private CostumeController costumeController;
+    private GameManager gameManager;
+    private Spawn_Hydrants spawn_Hydrants;
+    private Hats hats;
+    private Sound_Bubble sound_Bubble;
+    private Sound_Bark sound_Bark;
+    private Sound_DogEating sound_DogEating;
+    private Sound_Dash sound_Dash;
+    private Sound_ActivePirates sound_ActivePirates;
+    private Sound_SpeedUp sound_SpeedUp;
 
     private void Awake()
     {
@@ -168,9 +178,19 @@ public class Player_Controller : MonoBehaviour
         //Alive Check
         isAlive = true;
 
-        trail_num = FindObjectOfType<GameManager>().trailNum;
-        corgi_num = FindObjectOfType<GameManager>().corgiPickNum;
-        costume_num = FindObjectOfType<GameManager>().costumePick;
+        sound_Dash = FindObjectOfType<Sound_Dash>();
+        sound_DogEating = FindObjectOfType<Sound_DogEating>();
+        sound_Bark = FindObjectOfType<Sound_Bark>();
+        sound_Bubble = FindObjectOfType<Sound_Bubble>();
+        sound_ActivePirates = FindObjectOfType<Sound_ActivePirates>();
+        sound_SpeedUp = FindObjectOfType<Sound_SpeedUp>();
+        hats = FindObjectOfType<Hats>();
+        spawn_Hydrants = FindObjectOfType<Spawn_Hydrants>();
+        gameManager = FindObjectOfType<GameManager>();
+        costumeController = FindObjectOfType<CostumeController>();
+        trail_num = gameManager.trailNum;
+        corgi_num = gameManager.corgiPickNum;
+        costume_num = gameManager.costumePick;
 
         dashTimer = 0f;
         dashLength = 0.8f;
@@ -183,9 +203,9 @@ public class Player_Controller : MonoBehaviour
     private void Start()
     {
         anim = gameObject.GetComponent<Animator>();
-        FindObjectOfType<CostumeController>().costume_anim.SetBool("HasTail", FindObjectOfType<GameManager>().hasTail);
+        costumeController.costume_anim.SetBool("HasTail", gameManager.hasTail);
 
-        dreamType = FindObjectOfType<GameManager>().dreamType;
+        dreamType = gameManager.dreamType;
 
         jumpCounter = 0;
         dashCounter = 0;
@@ -194,8 +214,8 @@ public class Player_Controller : MonoBehaviour
         speedIncrease = 7;
 
         anim.SetInteger("CorgiNum", corgi_num);
-        FindObjectOfType<CostumeController>().costume_anim.SetInteger("CostumeNum", FindObjectOfType<GameManager>().costumePick);
-        FindObjectOfType<Hats>().hat_anim.SetInteger("HatNumber", FindObjectOfType<GameManager>().hatNum);
+        costumeController.costume_anim.SetInteger("CostumeNum", gameManager.costumePick);
+        hats.hat_anim.SetInteger("HatNumber", gameManager.hatNum);
 
         //Corgi Power Ups
         bubbleShield = false;
@@ -249,18 +269,18 @@ public class Player_Controller : MonoBehaviour
             jumpCounter = 0;
             dashCounter = 0;
             anim.SetBool(running_hash, true);
-            FindObjectOfType<CostumeController>().costume_anim.SetBool(running_hash, true);
-            FindObjectOfType<Hats>().hat_anim.SetBool(running_hash, true);
+            costumeController.costume_anim.SetBool(running_hash, true);
+            hats.hat_anim.SetBool(running_hash, true);
             anim.SetBool(flying_hash, false);
-            FindObjectOfType<CostumeController>().costume_anim.SetBool(flying_hash, false);
-            FindObjectOfType<Hats>().hat_anim.SetBool(flying_hash, false);
+            costumeController.costume_anim.SetBool(flying_hash, false);
+            hats.hat_anim.SetBool(flying_hash, false);
         }
         else
         {
             rb.MoveRotation(0 * Time.deltaTime);
             anim.SetBool(running_hash, false);
-            FindObjectOfType<CostumeController>().costume_anim.SetBool(running_hash, false);
-            FindObjectOfType<Hats>().hat_anim.SetBool(running_hash, false);
+            costumeController.costume_anim.SetBool(running_hash, false);
+            hats.hat_anim.SetBool(running_hash, false);
         }
     }
 
@@ -274,18 +294,18 @@ public class Player_Controller : MonoBehaviour
             jumpCounter = 0;
             dashCounter = 0;
             anim.SetBool(sliding_hash, true);
-            FindObjectOfType<CostumeController>().costume_anim.SetBool(sliding_hash, true);
-            FindObjectOfType<Hats>().hat_anim.SetBool(sliding_hash, true);
+            costumeController.costume_anim.SetBool(sliding_hash, true);
+            hats.hat_anim.SetBool(sliding_hash, true);
             anim.SetBool(flying_hash, false);
-            FindObjectOfType<CostumeController>().costume_anim.SetBool(flying_hash, false);
-            FindObjectOfType<Hats>().hat_anim.SetBool(flying_hash, false);
+            costumeController.costume_anim.SetBool(flying_hash, false);
+            hats.hat_anim.SetBool(flying_hash, false);
         }
         else
         {
             //rb.MoveRotation(0 * Time.deltaTime);
             anim.SetBool(sliding_hash, false);
-            FindObjectOfType<CostumeController>().costume_anim.SetBool(sliding_hash, false);
-            FindObjectOfType<Hats>().hat_anim.SetBool(sliding_hash, false);
+            costumeController.costume_anim.SetBool(sliding_hash, false);
+            hats.hat_anim.SetBool(sliding_hash, false);
         }
     }
 
@@ -312,8 +332,8 @@ public class Player_Controller : MonoBehaviour
             if (isJumping == false)
             {
                 anim.SetBool(flying_hash, true);
-                FindObjectOfType<CostumeController>().costume_anim.SetBool(flying_hash, true);
-                FindObjectOfType<Hats>().hat_anim.SetBool(flying_hash, true);
+                costumeController.costume_anim.SetBool(flying_hash, true);
+                hats.hat_anim.SetBool(flying_hash, true);
             }
         }
 
@@ -345,8 +365,8 @@ public class Player_Controller : MonoBehaviour
             newForce.Set(0.0f, jumpForce);
             rb.AddForce(newForce, ForceMode2D.Impulse);
             anim.SetTrigger(jump_hash);
-            FindObjectOfType<CostumeController>().costume_anim.SetTrigger(jump_hash);
-            FindObjectOfType<Hats>().hat_anim.SetTrigger(jump_hash);
+            costumeController.costume_anim.SetTrigger(jump_hash);
+            hats.hat_anim.SetTrigger(jump_hash);
             Instantiate(cloudEffect, transform);
         }
         if (jumpCounter == 0)
@@ -365,8 +385,8 @@ public class Player_Controller : MonoBehaviour
         newForce.Set(0.0f, jumpForce);
         rb.AddForce(newForce, ForceMode2D.Impulse);
         anim.SetTrigger(jump_hash);
-        FindObjectOfType<CostumeController>().costume_anim.SetTrigger(jump_hash);
-        FindObjectOfType<Hats>().hat_anim.SetTrigger(jump_hash);
+        costumeController.costume_anim.SetTrigger(jump_hash);
+        hats.hat_anim.SetTrigger(jump_hash);
         Instantiate(cloudEffect, transform);
         jumpCounter = 0;
     }
@@ -402,23 +422,23 @@ public class Player_Controller : MonoBehaviour
 
         if (randFallingStar == 1)
         {
-            FindObjectOfType<Spawn_Hydrants>().SpawnFallingStar1();
+            spawn_Hydrants.SpawnFallingStar1();
         }
         else if (randFallingStar == 2)
         {
-            FindObjectOfType<Spawn_Hydrants>().SpawnFallingStar2();
+            spawn_Hydrants.SpawnFallingStar2();
         }
         else if (randFallingStar == 3)
         {
-            FindObjectOfType<Spawn_Hydrants>().SpawnFallingStar3();
+            spawn_Hydrants.SpawnFallingStar3();
         }
         else if (randFallingStar == 4)
         {
-            FindObjectOfType<Spawn_Hydrants>().SpawnFallingStar4();
+            spawn_Hydrants.SpawnFallingStar4();
         }
         else if (randFallingStar == 5)
         {
-            FindObjectOfType<Spawn_Hydrants>().SpawnFallingStar5();
+            spawn_Hydrants.SpawnFallingStar5();
         }
 
     }
@@ -460,15 +480,15 @@ public class Player_Controller : MonoBehaviour
 
     private void DecreaseTimeScale()
     {
-        FindObjectOfType<Sound_SpeedUp>().SpeedUp1();
-        FindObjectOfType<GameManager>().stopwatch.transform.localScale = new Vector3(4, 4, 4);
+        sound_SpeedUp.SpeedUp1();
+        gameManager.stopwatch.transform.localScale = new Vector3(4, 4, 4);
         speedIncrease -= 1.0f;
         Invoke(nameof(ShrinkStopwatch), 1.5f);
     }
 
     private void ShrinkStopwatch()
     {
-        FindObjectOfType<GameManager>().stopwatch.transform.localScale = new Vector3(0, 0, 0);
+        gameManager.stopwatch.transform.localScale = new Vector3(0, 0, 0);
     }
 
     public void AddCorgiTrail()
@@ -569,7 +589,7 @@ public class Player_Controller : MonoBehaviour
             dashing = true;
             Time.timeScale = 3f;
             dashTimer = 0;
-            FindObjectOfType<Sound_Dash>().Dash1();
+            sound_Dash.Dash1();
             Instantiate(forwardDashEffect, transform);
         }
         if (dashCounter == 0)
@@ -628,14 +648,14 @@ public class Player_Controller : MonoBehaviour
             {
                 if (touch.phase == TouchPhase.Began)
                 {
-                    if (FindObjectOfType<GameManager>().controlMode == 1)
+                    if (gameManager.controlMode == 1)
                     {
                         if (canDash)
                         {
                             Dash();
                         }
                     }
-                    else if (FindObjectOfType<GameManager>().controlMode == 2)
+                    else if (gameManager.controlMode == 2)
                     {
                         if (canJump)
                         {
@@ -649,14 +669,14 @@ public class Player_Controller : MonoBehaviour
             {
                 if (touch.phase == TouchPhase.Began)
                 {
-                    if (FindObjectOfType<GameManager>().controlMode == 1)
+                    if (gameManager.controlMode == 1)
                     {
                         if (canJump)
                         {
                             Jump();
                         }
                     }
-                    else if (FindObjectOfType<GameManager>().controlMode == 2)
+                    else if (gameManager.controlMode == 2)
                     {
                         if (canDash)
                         {
@@ -671,7 +691,7 @@ public class Player_Controller : MonoBehaviour
 
     public void GameOver()
     {
-        FindObjectOfType<GameManager>().EndGameOver();
+        gameManager.EndGameOver();
     }
 
     public void Pause()
@@ -679,8 +699,8 @@ public class Player_Controller : MonoBehaviour
         pause = 1;
         Time.timeScale = 1f;
         anim.SetTrigger("StartGameOver");
-        FindObjectOfType<CostumeController>().costume_anim.SetTrigger("StartGameOver");
-        FindObjectOfType<Hats>().hat_anim.SetTrigger("StartGameOver");
+        costumeController.costume_anim.SetTrigger("StartGameOver");
+        hats.hat_anim.SetTrigger("StartGameOver");
         destroyObject1 = GameObject.FindGameObjectsWithTag("trail");
 
         foreach (GameObject oneObject in destroyObject1)
@@ -696,8 +716,8 @@ public class Player_Controller : MonoBehaviour
     {
         isJumping = false;
         anim.SetBool(flying_hash, true);
-        FindObjectOfType<CostumeController>().costume_anim.SetBool(flying_hash, true);
-        FindObjectOfType<Hats>().hat_anim.SetBool(flying_hash, true);
+        costumeController.costume_anim.SetBool(flying_hash, true);
+        hats.hat_anim.SetBool(flying_hash, true);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -714,15 +734,15 @@ public class Player_Controller : MonoBehaviour
                 {
                     if (bubbleShield == false)
                     {
-                        FindObjectOfType<Sound_Bubble>().BubbleGet();
+                        sound_Bubble.BubbleGet();
                         bubbleShield = true;
                         Instantiate(prefabBubbleShield, transform);
                     }
                     else
                     {
-                        FindObjectOfType<Sound_Bubble>().BubbleGet();
-                        FindObjectOfType<GameManager>().BubblePowerupScore();
-                        FindObjectOfType<Spawn_Hydrants>().IncreaseComboScoreVisual();
+                        sound_Bubble.BubbleGet();
+                        gameManager.BubblePowerupScore();
+                        spawn_Hydrants.IncreaseComboScoreVisual();
                     }
                 }
                 else if (collision.gameObject.transform.tag == "SlowDown")
@@ -736,7 +756,7 @@ public class Player_Controller : MonoBehaviour
                     {
                         FindObjectOfType<BubbleShield>().bubble_anim.SetTrigger("Pop");
                     }
-                    FindObjectOfType<GameManager>().StartGameOver();
+                    gameManager.StartGameOver();
                     CorgiCloudGameover();
                 }
                 else if (collision.gameObject.transform.tag == "Cannonball")
@@ -747,7 +767,7 @@ public class Player_Controller : MonoBehaviour
                     }
                     else
                     {
-                        FindObjectOfType<GameManager>().StartGameOver();
+                        gameManager.StartGameOver();
                         CorgiCloudGameover();
                     }
                 }
@@ -762,8 +782,8 @@ public class Player_Controller : MonoBehaviour
                     {
                         Destroy(collision.gameObject);
                         allowIsland = false;
-                        FindObjectOfType<Spawn_Hydrants>().SpawnIslandSet();
-                        FindObjectOfType<Spawn_Hydrants>().SpawnBigPirateship();
+                        spawn_Hydrants.SpawnIslandSet();
+                        spawn_Hydrants.SpawnBigPirateship();
                     }
                 }
                 else if (collision.gameObject.transform.tag == "Water")
@@ -772,13 +792,13 @@ public class Player_Controller : MonoBehaviour
                     {
                         FindObjectOfType<BubbleShield>().bubble_anim.SetTrigger("Pop");
                     }
-                    FindObjectOfType<GameManager>().StartGameOver();
+                    gameManager.StartGameOver();
                     CorgiCloudGameover();
                 }
                 else if (collision.gameObject.transform.tag == "Scoring")
                 {
-                    FindObjectOfType<GameManager>().IncreaseScore();
-                    FindObjectOfType<Spawn_Hydrants>().IncreaseScoreVisual();
+                    gameManager.IncreaseScore();
+                    spawn_Hydrants.IncreaseScoreVisual();
                 }
                 else if (collision.gameObject.transform.tag == "TopOrBotStar")
                 {
@@ -800,15 +820,15 @@ public class Player_Controller : MonoBehaviour
                 }
                 else if (collision.gameObject.transform.tag == "ResetStarCombo")
                 {
-                    FindObjectOfType<GameManager>().comboScoreTracker = 0;
-                    FindObjectOfType<Spawn_Hydrants>().comboNum = 0;
+                    gameManager.comboScoreTracker = 0;
+                    spawn_Hydrants.comboNum = 0;
                     //Close treasure room
-                    FindObjectOfType<Spawn_Hydrants>().treasurePick = 1;
+                    spawn_Hydrants.treasurePick = 1;
                 }
                 else if (collision.gameObject.transform.tag == "RestartGameLoop")
                 {
                     //reset treasure room to open
-                    FindObjectOfType<Spawn_Hydrants>().treasurePick = 2;
+                    spawn_Hydrants.treasurePick = 2;
                     fallingStarCount += 1;
                 }
                 else if (collision.gameObject.transform.tag == "ComboStar")
@@ -816,37 +836,37 @@ public class Player_Controller : MonoBehaviour
                     ranDogEating = Random.Range(1, 2);
                     if (ranDogEating == 1)
                     {
-                        FindObjectOfType<Sound_DogEating>().DogEating1();
+                        sound_DogEating.DogEating1();
                     }
                     else if (ranDogEating == 2)
                     {
-                        FindObjectOfType<Sound_DogEating>().DogEating2();
+                        sound_DogEating.DogEating2();
                     }
                     Destroy(collision.gameObject);
-                    FindObjectOfType<Spawn_Hydrants>().comboNum++;
-                    FindObjectOfType<GameManager>().IncreaseComboScore();
-                    FindObjectOfType<Spawn_Hydrants>().IncreaseComboScoreVisual();
+                    spawn_Hydrants.comboNum++;
+                    gameManager.IncreaseComboScore();
+                    spawn_Hydrants.IncreaseComboScoreVisual();
                 }
                 else if (collision.gameObject.transform.tag == "ResetTreatCombo")
                 {
-                    FindObjectOfType<GameManager>().comboTreatTracker = 0;
+                    gameManager.comboTreatTracker = 0;
                 }
                 else if (collision.gameObject.transform.tag == "DogTreat1")
                 {
                     ranDogEating = Random.Range(1, 2);
                     if (ranDogEating == 1)
                     {
-                        FindObjectOfType<Sound_DogEating>().DogEating1();
+                        sound_DogEating.DogEating1();
                     }
                     else if (ranDogEating == 2)
                     {
-                        FindObjectOfType<Sound_DogEating>().DogEating2();
+                        sound_DogEating.DogEating2();
                     }
                     Destroy(collision.gameObject);
-                    FindObjectOfType<GameManager>().IncreaseGBP1();
-                    FindObjectOfType<Spawn_Hydrants>().IncreaseGBPVisual();
-                    FindObjectOfType<GameManager>().IncreaseScore();
-                    FindObjectOfType<Spawn_Hydrants>().IncreaseScoreVisual();
+                    gameManager.IncreaseGBP1();
+                    spawn_Hydrants.IncreaseGBPVisual();
+                    gameManager.IncreaseScore();
+                    spawn_Hydrants.IncreaseScoreVisual();
 
                 }
                 else if (collision.gameObject.transform.tag == "DogTreat2")
@@ -854,21 +874,21 @@ public class Player_Controller : MonoBehaviour
                     ranDogEating = Random.Range(1, 3);
                     if (ranDogEating == 1)
                     {
-                        FindObjectOfType<Sound_Bark>().Bark1();
+                        sound_Bark.Bark1();
                     }
                     else if (ranDogEating == 2)
                     {
-                        FindObjectOfType<Sound_Bark>().Bark2();
+                        sound_Bark.Bark2();
                     }
                     else if (ranDogEating == 3)
                     {
-                        FindObjectOfType<Sound_Bark>().Bark3();
+                        sound_Bark.Bark3();
                     }
                     Destroy(collision.gameObject);
-                    FindObjectOfType<GameManager>().IncreaseGBP2();
-                    FindObjectOfType<Spawn_Hydrants>().IncreaseGBPVisual();
-                    FindObjectOfType<GameManager>().IncreaseScore();
-                    FindObjectOfType<Spawn_Hydrants>().IncreaseScoreVisual();
+                    gameManager.IncreaseGBP2();
+                    spawn_Hydrants.IncreaseGBPVisual();
+                    gameManager.IncreaseScore();
+                    spawn_Hydrants.IncreaseScoreVisual();
 
                 }
                 else if (collision.gameObject.transform.tag == "DogTreat3")
@@ -876,17 +896,17 @@ public class Player_Controller : MonoBehaviour
                     ranDogEating = Random.Range(1, 2);
                     if (ranDogEating == 1)
                     {
-                        FindObjectOfType<Sound_DogEating>().DogEating1();
+                        sound_DogEating.DogEating1();
                     }
                     else if (ranDogEating == 2)
                     {
-                        FindObjectOfType<Sound_DogEating>().DogEating2();
+                        sound_DogEating.DogEating2();
                     }
                     Destroy(collision.gameObject);
-                    FindObjectOfType<GameManager>().IncreaseGBP3();
-                    FindObjectOfType<Spawn_Hydrants>().IncreaseGBPVisual();
-                    FindObjectOfType<GameManager>().IncreaseScore();
-                    FindObjectOfType<Spawn_Hydrants>().IncreaseScoreVisual();
+                    gameManager.IncreaseGBP3();
+                    spawn_Hydrants.IncreaseGBPVisual();
+                    gameManager.IncreaseScore();
+                    spawn_Hydrants.IncreaseScoreVisual();
 
                 }
                 else if (collision.gameObject.transform.tag == "DogTreat8")
@@ -894,26 +914,26 @@ public class Player_Controller : MonoBehaviour
                     ranDogEating = Random.Range(1, 3);
                     if (ranDogEating == 1)
                     {
-                        FindObjectOfType<Sound_Bark>().Bark1();
+                        sound_Bark.Bark1();
                     }
                     else if (ranDogEating == 2)
                     {
-                        FindObjectOfType<Sound_Bark>().Bark2();
+                        sound_Bark.Bark2();
                     }
                     else if (ranDogEating == 3)
                     {
-                        FindObjectOfType<Sound_Bark>().Bark3();
+                        sound_Bark.Bark3();
                     }
                     Destroy(collision.gameObject);
-                    FindObjectOfType<GameManager>().IncreaseGBP8();
-                    FindObjectOfType<Spawn_Hydrants>().IncreaseGBPVisual();
-                    FindObjectOfType<GameManager>().IncreaseScore();
-                    FindObjectOfType<Spawn_Hydrants>().IncreaseScoreVisual();
+                    gameManager.IncreaseGBP8();
+                    spawn_Hydrants.IncreaseGBPVisual();
+                    gameManager.IncreaseScore();
+                    spawn_Hydrants.IncreaseScoreVisual();
 
                 }
                 else if (collision.gameObject.transform.tag == "Pirate")
                 {
-                    FindObjectOfType<Sound_ActivePirates>().PirateOyStopThat1();
+                    sound_ActivePirates.PirateOyStopThat1();
                 }
                 else if (collision.gameObject.transform.tag == "Mole")
                 {
@@ -927,7 +947,7 @@ public class Player_Controller : MonoBehaviour
                 }
                 else if (collision.gameObject.transform.tag == "EndTutorial")
                 {
-                    FindObjectOfType<GameManager>().TutorialGameOver();
+                    gameManager.TutorialGameOver();
                     CorgiCloudGameover();
                 }
 
