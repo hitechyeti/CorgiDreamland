@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
 
     public DataManager dataManager;
@@ -74,8 +74,10 @@ public class GameManager : MonoBehaviour
     //High Score
     public int highScore;
 
-    public void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         Time.timeScale = 1f;
         score = 0;
         comboScoreTracker = 0;
@@ -508,8 +510,8 @@ public class GameManager : MonoBehaviour
     public void SceneGoodDream()
     {
         //Reset Dream to Good Dream
-        //dataManager.data.dreamType = 2;
-        //dataManager.Save();
+        dataManager.data.dreamType = 2;
+        dataManager.Save();
 
         SceneManager.LoadScene("MainGame");
     }
