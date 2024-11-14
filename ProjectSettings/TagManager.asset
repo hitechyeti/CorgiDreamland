@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Hydrant
+  - Scoring
+  - RightWall
+  - Shark
+  - Pufferfish
+  - trail
+  - DogTreat
+  - ComboStar
+  - Water
+  - Ceiling
+  - Pirate
+  - DogTreat1
+  - DogTreat2
+  - DogTreat3
+  - DogTreat4
+  - DogTreat5
+  - DogTreat6
+  - DogTreat7
+  - DogTreat8
+  - Effect
+  - PlayerPlow
+  - Brick
+  - Platform
+  - Cloud
+  - Rot33
+  - Launch
+  - Rot-37
+  - Rot0
+  - Rot30
+  - TopStar
+  - BotStar
+  - TopOrBotStar
+  - ResetTreatCombo
+  - ResetStarCombo
+  - IslandSet
+  - Parallax
+  - StopBigPirateship
+  - DestroyBigPirateship
+  - BubblePowerUp
+  - BubbleShield
+  - Cannonball
+  - RestartGameLoop
+  - AllowIslandSet
+  - SlowDown
+  - Mole
+  - EndTutorial
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - Ground
+  - Water
+  - UI
+  - trail
+  - Ice
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: spriteTrail
+    uniqueID: 3254050609
+    locked: 0
