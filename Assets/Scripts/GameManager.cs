@@ -542,10 +542,13 @@ public class GameManager : Singleton<GameManager>
         //Reset Dream to Good Dream
         dataManager.data.dreamType = 2;
         dataManager.Save();
+<<<<<<< HEAD
 
         StopAllCoroutines();
         UpdateCanvas();
         can_MainGame.gameObject.SetActive(true);
+=======
+>>>>>>> parent of aadf57a (code update 1)
 
         SceneManager.LoadScene("MainGame");
     }
