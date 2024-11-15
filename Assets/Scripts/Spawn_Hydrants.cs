@@ -132,24 +132,21 @@ public class Spawn_Hydrants : MonoBehaviour
     public int comboNum;
 
     private GameManager gameManager;
+    private CameraMovement cameraMovement;
+    private Player_Controller player_Controller;
+    private BigPirateship bigPirateship;
 
     private void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
-<<<<<<< HEAD
         cameraMovement = FindObjectOfType<CameraMovement>();
         player_Controller = FindObjectOfType<Player_Controller>();
         bigPirateship = FindObjectOfType<BigPirateship>();
-        scoreText = GameObject.FindGameObjectWithTag("Score_TXT").GetComponent<TextMeshProUGUI>();
-        highScoreText = GameObject.FindGameObjectWithTag("HighScore_TXT").GetComponent<TextMeshProUGUI>();
-        GBPText = GameObject.FindGameObjectWithTag("GBP_TXT").GetComponent<TextMeshProUGUI>();
-=======
->>>>>>> parent of aadf57a (code update 1)
     }
 
     private void Start()
     {
-        FindObjectOfType<CameraMovement>().ChangeMaxY_High();
+        cameraMovement.ChangeMaxY_High();
 
         backAdjust = 0f;
         islandNum = 1;
@@ -178,7 +175,7 @@ public class Spawn_Hydrants : MonoBehaviour
 
         //BUG TESTING VARIABLE
         islandNumbers = 0;
-}
+    }
 
     private void FixedUpdate()
     {
@@ -404,10 +401,10 @@ public class Spawn_Hydrants : MonoBehaviour
             //Start Storm Clouds
             if (islandNum == 6)
             {
-                FindObjectOfType<CameraMovement>().ChangeMaxY_Low();
+                cameraMovement.ChangeMaxY_Low();
                 InvokeRepeating(nameof(SpawnStormClouds), 1.0f, 1.0f);
 
-                FindObjectOfType<Player_Controller>().StopSpeedUp();
+                player_Controller.StopSpeedUp();
             }
 
             iceRandom = Random.Range(1, 4);
@@ -450,9 +447,9 @@ public class Spawn_Hydrants : MonoBehaviour
         }
         else if (islandNum == 9)
         {
-                
-            FindObjectOfType<Player_Controller>().StartSpeedUp();
-            FindObjectOfType<CameraMovement>().ChangeMaxY_High();
+
+            player_Controller.StartSpeedUp();
+            cameraMovement.ChangeMaxY_High();
 
             //Spawn treasure location
             if (treasurePick == 1)
@@ -471,11 +468,11 @@ public class Spawn_Hydrants : MonoBehaviour
             //ALSO Big Pirateship not spawning NE more
             if (bigPirateshipExists)
             {
-                FindObjectOfType<BigPirateship>().BigPirateshipLeave();
+                bigPirateship.BigPirateshipLeave();
             }
-                
+
         }
-        
+
     }
 
     private void SpawnObstacleType()
@@ -503,7 +500,7 @@ public class Spawn_Hydrants : MonoBehaviour
             if (obstacleRandom == 1)
             {
                 //SpawnBrickWall_Bot();
-               // SpawnAllBrickWall();
+                // SpawnAllBrickWall();
                 lastObstacle = 1;
             }
             else if (obstacleRandom == 2)
@@ -526,7 +523,7 @@ public class Spawn_Hydrants : MonoBehaviour
                 BallLightning3();
                 lastObstacle = 5;
             }
-        } 
+        }
     }
 
     private void SpawnComboStarType()
@@ -705,7 +702,7 @@ public class Spawn_Hydrants : MonoBehaviour
     {
         GameObject corgiMain = Instantiate(prefabcorgiMain, transform.position, Quaternion.identity);
         corgiMain.transform.position = Vector3.zero;
-        FindObjectOfType<CameraMovement>().target = corgiMain.transform;
+        cameraMovement.target = corgiMain.transform;
     }
 
     public void IncreaseScoreVisual()

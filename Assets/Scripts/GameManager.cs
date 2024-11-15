@@ -74,30 +74,8 @@ public class GameManager : MonoBehaviour
     //High Score
     public int highScore;
 
-<<<<<<< HEAD
-    private GameObject can_MainGame;
-    private GameObject can_Start;
-    private GameObject can_Costumes;
-    private GameObject can_Options;
-    private GameObject can_Credits;
-    private GameObject can_PlayAgain;
-
-    protected override void Awake()
-    {
-        base.Awake();
-
-        //Canvas Setup
-        can_MainGame = GameObject.FindGameObjectWithTag("Canvas_MainGame");
-        can_Start = GameObject.FindGameObjectWithTag("Canvas_Start");
-        can_Costumes = GameObject.FindGameObjectWithTag("Canvas_Costumes");
-        can_Options = GameObject.FindGameObjectWithTag("Canvas_Options");
-        can_Credits = GameObject.FindGameObjectWithTag("Canvas_Credits");
-        can_PlayAgain = GameObject.FindGameObjectWithTag("Canvas_PlayAgain");
-
-=======
     public void Awake()
     {
->>>>>>> parent of 743e130 (Optimizing GC)
         Time.timeScale = 1f;
         score = 0;
         comboScoreTracker = 0;
@@ -170,11 +148,6 @@ public class GameManager : MonoBehaviour
     public void Start()
     {
         stopwatch.transform.localScale = new Vector3(0, 0, 0);
-        can_MainGame.gameObject.SetActive(false);
-        can_Costumes.gameObject.SetActive(false);
-        can_Options.gameObject.SetActive(false);
-        can_Credits.gameObject.SetActive(false);
-        can_PlayAgain.gameObject.SetActive(false);
     }
 
     public void Update()
@@ -183,16 +156,6 @@ public class GameManager : MonoBehaviour
         {
             ScreenCapture.CaptureScreenshot("C:/Users/kpitn/OneDrive/Desktop/screenshots/Capture.png");
         }
-    }
-
-    public void UpdateCanvas()
-    {
-        can_MainGame.gameObject.SetActive(false);
-        can_Start.gameObject.SetActive(false);
-        can_Costumes.gameObject.SetActive(false);
-        can_Options.gameObject.SetActive(false);
-        can_Credits.gameObject.SetActive(false);
-        can_PlayAgain.gameObject.SetActive(false);
     }
 
     public void ChangeControls()
@@ -545,20 +508,8 @@ public class GameManager : MonoBehaviour
     public void SceneGoodDream()
     {
         //Reset Dream to Good Dream
-<<<<<<< HEAD
         dataManager.data.dreamType = 2;
         dataManager.Save();
-<<<<<<< HEAD
-
-        StopAllCoroutines();
-        UpdateCanvas();
-        can_MainGame.gameObject.SetActive(true);
-=======
->>>>>>> parent of aadf57a (code update 1)
-=======
-        //dataManager.data.dreamType = 2;
-        //dataManager.Save();
->>>>>>> parent of 743e130 (Optimizing GC)
 
         SceneManager.LoadScene("MainGame");
     }
