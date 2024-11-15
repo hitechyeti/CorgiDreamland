@@ -74,9 +74,24 @@ public class GameManager : Singleton<GameManager>
     //High Score
     public int highScore;
 
+    private GameObject can_MainGame;
+    private GameObject can_Start;
+    private GameObject can_Costumes;
+    private GameObject can_Options;
+    private GameObject can_Credits;
+    private GameObject can_PlayAgain;
+
     protected override void Awake()
     {
         base.Awake();
+
+        //Canvas Setup
+        can_MainGame = GameObject.FindGameObjectWithTag("Canvas_MainGame");
+        can_Start = GameObject.FindGameObjectWithTag("Canvas_Start");
+        can_Costumes = GameObject.FindGameObjectWithTag("Canvas_Costumes");
+        can_Options = GameObject.FindGameObjectWithTag("Canvas_Options");
+        can_Credits = GameObject.FindGameObjectWithTag("Canvas_Credits");
+        can_PlayAgain = GameObject.FindGameObjectWithTag("Canvas_PlayAgain");
 
         Time.timeScale = 1f;
         score = 0;
@@ -150,6 +165,11 @@ public class GameManager : Singleton<GameManager>
     public void Start()
     {
         stopwatch.transform.localScale = new Vector3(0, 0, 0);
+        can_MainGame.gameObject.SetActive(false);
+        can_Costumes.gameObject.SetActive(false);
+        can_Options.gameObject.SetActive(false);
+        can_Credits.gameObject.SetActive(false);
+        can_PlayAgain.gameObject.SetActive(false);
     }
 
     public void Update()
@@ -158,6 +178,16 @@ public class GameManager : Singleton<GameManager>
         {
             ScreenCapture.CaptureScreenshot("C:/Users/kpitn/OneDrive/Desktop/screenshots/Capture.png");
         }
+    }
+
+    public void UpdateCanvas()
+    {
+        can_MainGame.gameObject.SetActive(false);
+        can_Start.gameObject.SetActive(false);
+        can_Costumes.gameObject.SetActive(false);
+        can_Options.gameObject.SetActive(false);
+        can_Credits.gameObject.SetActive(false);
+        can_PlayAgain.gameObject.SetActive(false);
     }
 
     public void ChangeControls()
@@ -512,6 +542,10 @@ public class GameManager : Singleton<GameManager>
         //Reset Dream to Good Dream
         dataManager.data.dreamType = 2;
         dataManager.Save();
+
+        StopAllCoroutines();
+        UpdateCanvas();
+        can_MainGame.gameObject.SetActive(true);
 
         SceneManager.LoadScene("MainGame");
     }

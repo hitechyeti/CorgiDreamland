@@ -50,6 +50,15 @@ TagManager:
   - SlowDown
   - Mole
   - EndTutorial
+  - HighScore_TXT
+  - Score_TXT
+  - GBP_TXT
+  - Canvas_MainGame
+  - Canvas_Start
+  - Canvas_Costumes
+  - Canvas_Options
+  - Canvas_Credits
+  - Canvas_PlayAgain
   layers:
   - Default
   - TransparentFX

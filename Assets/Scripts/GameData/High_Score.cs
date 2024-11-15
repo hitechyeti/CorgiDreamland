@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class High_Score : MonoBehaviour
+public class High_Score : Singleton<High_Score>
 {
     public DataManager dataManager;
 

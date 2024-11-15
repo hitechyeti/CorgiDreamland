@@ -142,6 +142,9 @@ public class Spawn_Hydrants : MonoBehaviour
         cameraMovement = FindObjectOfType<CameraMovement>();
         player_Controller = FindObjectOfType<Player_Controller>();
         bigPirateship = FindObjectOfType<BigPirateship>();
+        scoreText = GameObject.FindGameObjectWithTag("Score_TXT").GetComponent<TextMeshProUGUI>();
+        highScoreText = GameObject.FindGameObjectWithTag("HighScore_TXT").GetComponent<TextMeshProUGUI>();
+        GBPText = GameObject.FindGameObjectWithTag("GBP_TXT").GetComponent<TextMeshProUGUI>();
     }
 
     private void Start()

@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using Dan.Main;
 
-public class Leaderboard : MonoBehaviour
+public class Leaderboard : Singleton<Leaderboard>
 {
     [SerializeField] private List<TextMeshProUGUI> names;
     [SerializeField] private List<TextMeshProUGUI> scores;
