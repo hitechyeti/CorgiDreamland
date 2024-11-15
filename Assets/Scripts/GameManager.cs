@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 
-public class GameManager : Singleton<GameManager>
+public class GameManager : MonoBehaviour
 {
 
     public DataManager dataManager;
@@ -74,6 +74,7 @@ public class GameManager : Singleton<GameManager>
     //High Score
     public int highScore;
 
+<<<<<<< HEAD
     private GameObject can_MainGame;
     private GameObject can_Start;
     private GameObject can_Costumes;
@@ -93,6 +94,10 @@ public class GameManager : Singleton<GameManager>
         can_Credits = GameObject.FindGameObjectWithTag("Canvas_Credits");
         can_PlayAgain = GameObject.FindGameObjectWithTag("Canvas_PlayAgain");
 
+=======
+    public void Awake()
+    {
+>>>>>>> parent of 743e130 (Optimizing GC)
         Time.timeScale = 1f;
         score = 0;
         comboScoreTracker = 0;
@@ -540,6 +545,7 @@ public class GameManager : Singleton<GameManager>
     public void SceneGoodDream()
     {
         //Reset Dream to Good Dream
+<<<<<<< HEAD
         dataManager.data.dreamType = 2;
         dataManager.Save();
 <<<<<<< HEAD
@@ -549,6 +555,10 @@ public class GameManager : Singleton<GameManager>
         can_MainGame.gameObject.SetActive(true);
 =======
 >>>>>>> parent of aadf57a (code update 1)
+=======
+        //dataManager.data.dreamType = 2;
+        //dataManager.Save();
+>>>>>>> parent of 743e130 (Optimizing GC)
 
         SceneManager.LoadScene("MainGame");
     }

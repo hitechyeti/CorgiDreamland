@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
-public class DataManager : Singleton<DataManager>
+public class DataManager : MonoBehaviour
 {
 
     public PlayerData data;
