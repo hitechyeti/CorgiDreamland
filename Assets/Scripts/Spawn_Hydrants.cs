@@ -132,21 +132,15 @@ public class Spawn_Hydrants : MonoBehaviour
     public int comboNum;
 
     private GameManager gameManager;
-    private CameraMovement cameraMovement;
-    private Player_Controller player_Controller;
-    private BigPirateship bigPirateship;
 
     private void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
-        cameraMovement = FindObjectOfType<CameraMovement>();
-        player_Controller = FindObjectOfType<Player_Controller>();
-        bigPirateship = FindObjectOfType<BigPirateship>();
     }
 
     private void Start()
     {
-        cameraMovement.ChangeMaxY_High();
+        FindObjectOfType<CameraMovement>().ChangeMaxY_High();
 
         backAdjust = 0f;
         islandNum = 1;
@@ -401,10 +395,10 @@ public class Spawn_Hydrants : MonoBehaviour
             //Start Storm Clouds
             if (islandNum == 6)
             {
-                cameraMovement.ChangeMaxY_Low();
+                FindObjectOfType<CameraMovement>().ChangeMaxY_Low();
                 InvokeRepeating(nameof(SpawnStormClouds), 1.0f, 1.0f);
 
-                player_Controller.StopSpeedUp();
+                FindObjectOfType<Player_Controller>().StopSpeedUp();
             }
 
             iceRandom = Random.Range(1, 4);
@@ -447,9 +441,9 @@ public class Spawn_Hydrants : MonoBehaviour
         }
         else if (islandNum == 9)
         {
-
-            player_Controller.StartSpeedUp();
-            cameraMovement.ChangeMaxY_High();
+                
+            FindObjectOfType<Player_Controller>().StartSpeedUp();
+            FindObjectOfType<CameraMovement>().ChangeMaxY_High();
 
             //Spawn treasure location
             if (treasurePick == 1)
@@ -468,7 +462,7 @@ public class Spawn_Hydrants : MonoBehaviour
             //ALSO Big Pirateship not spawning NE more
             if (bigPirateshipExists)
             {
-                bigPirateship.BigPirateshipLeave();
+                FindObjectOfType<BigPirateship>().BigPirateshipLeave();
             }
                 
         }
@@ -702,7 +696,7 @@ public class Spawn_Hydrants : MonoBehaviour
     {
         GameObject corgiMain = Instantiate(prefabcorgiMain, transform.position, Quaternion.identity);
         corgiMain.transform.position = Vector3.zero;
-        cameraMovement.target = corgiMain.transform;
+        FindObjectOfType<CameraMovement>().target = corgiMain.transform;
     }
 
     public void IncreaseScoreVisual()
