@@ -18,16 +18,20 @@ public class DestroyShield : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         if (FindObjectOfType<Player_Controller>().pause == 0)
         {
             dashing = FindObjectOfType<Player_Controller>().dashing;
         }
+        */
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
         {
+            dashing = FindObjectOfType<Player_Controller>().dashing;
+
             if (dashing == true)
             {
                 if (FindObjectOfType<Player_Controller>().isAlive == true)

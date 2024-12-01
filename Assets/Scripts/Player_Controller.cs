@@ -277,7 +277,7 @@ public class Player_Controller : MonoBehaviour
         }
         else
         {
-            rb.MoveRotation(0 * Time.deltaTime);
+            rb.MoveRotation(0 * Time.fixedDeltaTime);
             anim.SetBool(running_hash, false);
             costumeController.costume_anim.SetBool(running_hash, false);
             hats.hat_anim.SetBool(running_hash, false);
@@ -311,7 +311,31 @@ public class Player_Controller : MonoBehaviour
 
     private void ApplyMovement()
     {
-        //Set speed for platforms
+        //player movements
+        if (grounded && !isJumping || onIce && !isJumping)
+        {
+            rb.velocity = new Vector2(0, rb.velocity.y);
+        }
+        else if (!grounded && !onIce && dashing) //dashing
+        {
+            rb.velocity = new Vector2(0, 0);
+            rb.gravityScale = 0;
+        }
+        else if (!grounded && !onIce) //If in air
+        {
+            rb.velocity = new Vector2(0, rb.velocity.y);
+
+            
+        }
+
+        if (!grounded)//ice is always flat
+        {
+            rb.rotation = 0f;
+        }
+
+        /*
+         * OG CODE
+         * //Set speed for platforms
         //FindObjectOfType<Island_Sets_Move>().speed = speedIncrease;
 
         //player movements
@@ -350,6 +374,9 @@ public class Player_Controller : MonoBehaviour
         {
             transform.position = new Vector3(0, transform.position.y, transform.position.z);
         }
+                */
+
+        
     }
 
     private void Jump()
@@ -603,7 +630,7 @@ public class Player_Controller : MonoBehaviour
         //dash handling
         if (dashTimer < dashLength)
         {
-            dashTimer += 1 * Time.deltaTime;
+            dashTimer += 1 * Time.fixedDeltaTime;
             isJumping = false;
         }
         else

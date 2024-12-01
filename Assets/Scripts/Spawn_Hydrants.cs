@@ -133,14 +133,12 @@ public class Spawn_Hydrants : MonoBehaviour
 
     private GameManager gameManager;
     private CameraMovement cameraMovement;
-    private Player_Controller player_Controller;
     private BigPirateship bigPirateship;
 
     private void Awake()
     {
         gameManager = FindObjectOfType<GameManager>();
         cameraMovement = FindObjectOfType<CameraMovement>();
-        player_Controller = FindObjectOfType<Player_Controller>();
         bigPirateship = FindObjectOfType<BigPirateship>();
     }
 
@@ -404,7 +402,7 @@ public class Spawn_Hydrants : MonoBehaviour
                 cameraMovement.ChangeMaxY_Low();
                 InvokeRepeating(nameof(SpawnStormClouds), 1.0f, 1.0f);
 
-                player_Controller.StopSpeedUp();
+                FindObjectOfType<Player_Controller>().StopSpeedUp();
             }
 
             iceRandom = Random.Range(1, 4);
@@ -448,7 +446,7 @@ public class Spawn_Hydrants : MonoBehaviour
         else if (islandNum == 9)
         {
 
-            player_Controller.StartSpeedUp();
+            FindObjectOfType<Player_Controller>().StartSpeedUp();
             cameraMovement.ChangeMaxY_High();
 
             //Spawn treasure location
